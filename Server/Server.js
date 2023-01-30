@@ -1,3 +1,5 @@
+//Carlos Esteban Rivea Perez 213530
+
 const net = require('net');
 let names = []//aqui almaceno los usuarios que se conecten
 
@@ -54,6 +56,6 @@ const server = net.createServer((socket) =>{
  
 
 server.listen(4000, ()=>{
-    console.log('si calo si tu chingadera en el puerto', server.address().port)
+    console.log('si calo si el puerto', server.address().port)
 })
 

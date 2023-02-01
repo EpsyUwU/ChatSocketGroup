@@ -13,27 +13,25 @@ const options = {
 }
 
 const client = net.createConnection(options, () =>{
-
-    
-    console.log("Bienvenido al chat " + name)
     client.write("userName"+name)
 
-    
-    
     client.on('data', (data) => {//recibe el mensaje
-        process.stdout.write("\n" + data)
-        process.stdout.write("\nyo>")
 
-        if(data == "nombre ya usado"){
-            let name = readline.question("Cual es tu nombre?> ")
-            client.write("userName"+name)
+        if(data.toString() === "nombre ya usado"){
+            console.log(data.toString())
+            name = readline.question("Cual es tu nombre?> ")
+        }else{
+            process.stdout.write("\n" + data)
+            process.stdout.write("\nyo>")  
         }
+
+        stdin.addListener('data', (data) => {//mando el mensaje
+                process.stdout.write("\nyo>")
+                client.write(name + ">" + data)
+            })
     });
- 
-    stdin.addListener('data', (data) => {//mando el mensaje
-        process.stdout.write("yo>")
-        client.write(name + ">" + data)
-    })
+    
+    
 })
 
 

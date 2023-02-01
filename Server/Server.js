@@ -8,13 +8,17 @@ const server = net.createServer((socket) =>{
 
     socket.on('data',(data)=>{
 
-        let message = data.toString().trim()//quito los espacios
-        console.log(message)
         
 
+        let message = data.toString().trim()//quito los espacios
+        let bai = message.substring(5)
+        console.log(message.substring(5))
+        if(bai === "0"){
+            socket.end()
+        }
+        
         if(message.startsWith("userName")){
             let userName = message.substring(8)//obtiene los datos del string despues del 8 digito
-            console.log(userName)
 
             let flag = false
 
@@ -26,8 +30,7 @@ const server = net.createServer((socket) =>{
 
             if(!flag){
                 names.push({socket, userName})
-                console.log(names.indexOf(userName))
-                socket.write("si cala tu nombre")
+                socket.write("bienvenido al chat")
             }else{
                 socket.write("nombre ya usado")
             }
@@ -36,8 +39,7 @@ const server = net.createServer((socket) =>{
             console.log('\nSe recibio el mensaje: ' + data)   
             names.forEach(client => {
                 if (client.socket != socket) {
-                    client.socket.write(data)
-                    
+                    client.socket.write(data)   
                 }
             });
         }  
